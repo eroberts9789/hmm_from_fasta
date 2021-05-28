@@ -10,14 +10,15 @@ OUTPUT_PATH = INPUT_PATH.parent / OUTPUT_FILE_NAME
 SEQUENCE_MIN_LENGTH = 1
 
 
-def get_input_paths() -> list():
+def get_input_paths() -> list:
     """
     Takes in a path to directory containing input fasta files, returns a list of paths to the fasta files
 
-    :return: list of paths to
+    :return: input_paths, list of paths to input protein files if any files are found
     """
     input_files = os.listdir(INPUT_PATH)
     input_paths = [INPUT_PATH / file for file in input_files]
+
     if input_paths:
         return input_paths
     else:
@@ -29,7 +30,7 @@ def filter_out_phages() -> list:
     """
     Parses through records in input files, appends records to filtered_sequences if keyword "phage" not found in record
 
-    :return: list of filtered records
+    :return: filtered_records, list of filtered records
     """
     input_paths = get_input_paths()
 
@@ -54,15 +55,16 @@ def remove_duplicates(filtered_records) -> Path:
     :param filtered_records: list of records from all protein files without keyword "phage"
     :return: Path to filtered file
     """
-
     record_ids = list()
     records_to_output = list()
+
     for record in filtered_records:
         if record.id not in record_ids and len(record.seq) > SEQUENCE_MIN_LENGTH:
             records_to_output.append(record)
             record_ids.append(record.id)
 
     SeqIO.write(records_to_output, OUTPUT_PATH, "fasta")
+
     return OUTPUT_PATH
 
 
