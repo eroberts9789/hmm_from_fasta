@@ -1,12 +1,14 @@
 import os
 import sys
 
+
 from Bio import SeqIO
 from pathlib import Path
 
+
 INPUT_PATH = Path(__file__).parent.parent / "data" / "test_data"
-OUTPUT_FILE_NAME = "filtered_fasta_protein.faa"
-OUTPUT_PATH = INPUT_PATH.parent / OUTPUT_FILE_NAME
+OUTPUT_FILE_NAME = "filtered_fasta_protein"
+OUTPUT_PATH = INPUT_PATH.parent / "results" / "temp_files" / OUTPUT_FILE_NAME
 SEQUENCE_MIN_LENGTH = 1
 
 

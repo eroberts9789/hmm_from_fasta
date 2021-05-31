@@ -1,5 +1,4 @@
-
-def get_sequence_lengths(all_by_all_blast_results_file) -> dict[str:int]:
+def get_sequence_lengths(all_by_all_blast_results_file) -> dict:
     """
     Takes blast results file and parses through lines
 
