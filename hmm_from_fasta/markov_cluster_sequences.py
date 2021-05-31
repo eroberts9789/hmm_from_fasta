@@ -1,6 +1,7 @@
 import subprocess
 
 
+from Bio import SeqIO
 from pathlib import Path
 
 
@@ -54,5 +55,26 @@ def blast_to_mcl(all_by_all_blast_results_file, polyprotein_sequences):
     return mcl_file_path
 
 
-def mcl_to_fasta(mcl_file_path):
-    pass
+def mcl_to_fasta(mcl_file_path, collapsed_fasta):
+    """
+
+    :param mcl_file_path:
+    :param collapsed_fasta:
+    :return:
+    """
+    mcl_file = open(mcl_file_path)
+    mcl_dict = {}
+    line_num = 0
+
+    for line in mcl_file:
+        line_num += 1
+        fasta_file_name = "fasta_file_cluster_" + str(line_num)
+        fasta_file_path = Path(collapsed_fasta).parent / fasta_file_name
+
+        for record_id in line.rstrip().split("\t"):
+            mcl_dict[record_id] = fasta_file_path
+
+    for record in SeqIO.parse(collapsed_fasta, "fasta"):
+        if record.id in mcl_dict:
+            pass
+

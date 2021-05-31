@@ -10,7 +10,7 @@ def test_get_input_paths():
     Test that if input files are found, they are all added to the list of paths
     """
     test_data_path = Path(__file__).parent.parent / "data" / "test_data"
-    expected = [test_data_path / "less_than_sequence_min_length", test_data_path / "repeated_records",
+    expected = [test_data_path / "less_than_sequence_min_length", test_data_path / "repeated_records", test_data_path / "large_data_file",
                 test_data_path / "contains_phages"]
 
     result = get_input_paths()

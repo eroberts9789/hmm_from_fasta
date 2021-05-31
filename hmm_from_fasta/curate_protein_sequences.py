@@ -35,16 +35,14 @@ def filter_out_phages() -> list:
     :return: filtered_records, list of filtered records
     """
     input_paths = get_input_paths()
+    filtered_records = list()
 
     for input_path in input_paths:
         with open(input_path) as handle:
 
-            filtered_records = list()
-
             for record in SeqIO.parse(handle, "fasta"):
                 if "phage" not in record.description:
                     filtered_records.append(record)
-
     return filtered_records
 
 
@@ -57,8 +55,8 @@ def remove_duplicates(filtered_records) -> Path:
     :param filtered_records: list of records from all protein files without keyword "phage"
     :return: Path to filtered file
     """
-    record_ids = list()
-    records_to_output = list()
+    record_ids = []
+    records_to_output = []
 
     for record in filtered_records:
         if record.id not in record_ids and len(record.seq) > SEQUENCE_MIN_LENGTH:
